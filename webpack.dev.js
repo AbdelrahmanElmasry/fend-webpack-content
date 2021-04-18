@@ -1,8 +1,9 @@
 const path = require('path') 
 const webpack = require('webpack')
-
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry:"./src/client/index.js",
+    mode:"development",
     output:{
         path:path.resolve(__dirname,'dist'),
         publicPath:path.resolve(__dirname,'dist'),
@@ -22,8 +23,14 @@ module.exports = {
             }
         ]
     },
+    plugins:[
+        new HtmlWebPackPlugin({
+            template:path.join(__dirname,'src/client/views/index.html'),
+            filename:"./index.html",
+        })
+    ],
     devServer:{
-        contentBase: [path.resolve(__dirname),path.join(__dirname, 'src/client/views'),path.join(__dirname, 'src/client/')],
+        contentBase: [path.resolve(__dirname,'dist/')],
         watchContentBase: true,
         open: true,
         host: "localhost",
